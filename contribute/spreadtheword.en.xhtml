@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <a id="go-to-order" href="#how-to-order" role="button" class="btn btn-primary btn-lg btn-block">Go to order!</a>
+    <a href="#how-to-order" role="button" class="btn btn-primary btn-lg btn-block btn-nav">Go to order!</a>
 
     <!-- ITEMIZE -->
 
@@ -80,112 +80,103 @@
 
     <hr />
 
-    <form method="post" id="orderpromo" action="/cgi-bin/promotion.php" accept-charset="utf-8">
+    <form method="post" class="order-promo clearfix" action="/cgi-bin/promotion.php" accept-charset="utf-8">
       <add-language />
+      <!-- Name, address -->
       <fieldset>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="firstname">First name *</label>
-            <input type="text" class="form-control" id="firstname" required="required" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="lastname">Last name *</label>
-            <input type="text" class="form-control" id="lastname" required="required" />
-          </div>
+        <legend>Your address</legend>
+        <div class="form-group col-md-6">
+          <label for="firstname">First name *</label>
+          <input type="text" class="form-control" id="firstname" required="required" />
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="org">Company / Organisation</label>
-            <input type="text" class="form-control" id="org" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="mail">Email *</label>
-            <input type="email" class="form-control" id="mail" required="required" />
-          </div>
+        <div class="form-group col-md-6">
+          <label for="lastname">Last name *</label>
+          <input type="text" class="form-control" id="lastname" required="required" />
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="street">Street, No. *</label>
-            <input type="text" class="form-control" id="street" required="required" />
-          </div>
+        <div class="form-group col-md-6">
+          <label for="org">Company / Organisation</label>
+          <input type="text" class="form-control" id="org" />
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="zip">Postcode *</label>
-            <input type="text" class="form-control" id="zip" required="required" />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="city">City *</label>
-            <input type="text" class="form-control" id="city" required="required" />
-          </div>
+        <div class="form-group col-md-6">
+          <label for="mail">Email *</label>
+          <input type="email" class="form-control" id="mail" required="required" />
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="country">Country *</label>
-            <country-list />
-          </div>
+        <div class="form-group col-md-6">
+          <label for="street">Street, No. *</label>
+          <input type="text" class="form-control" id="street" required="required" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="zip">Postcode *</label>
+          <input type="text" class="form-control" id="zip" required="required" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="city">City *</label>
+          <input type="text" class="form-control" id="city" required="required" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="country">Country *</label>
+          <country-list />
         </div>
       </fieldset>
       <fieldset>
-        <div id="langprefs" class="form-row clearfix">
-          <div class="form-group col-md-12">
-            <label>Language preferences</label>
-          </div>
-          <div class="form-group col-md-12">
+        <legend>Compose your package</legend>
+        <!-- Language -->
+        <div class="form-group clearfix">
+          <label>Language preferences</label>
+          <div>
           <!-- @Translators: No need to translate here, we use the native names -->
           <!-- If you want to extend, please iterate the number behind "lang" accordingly -->
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang1"><input type="checkbox" name="languages[]" id="lang1" value="en" checked="checked" />English</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang2"><input type="checkbox" name="languages[]" id="lang2" value="cn" />中文</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang3"><input type="checkbox" name="languages[]" id="lang3" value="de" />Deutsch</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang4"><input type="checkbox" name="languages[]" id="lang4" value="el" />Eλληνικά</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang5"><input type="checkbox" name="languages[]" id="lang5" value="es" />Español</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang6"><input type="checkbox" name="languages[]" id="lang6" value="fr" />Français</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang7"><input type="checkbox" name="languages[]" id="lang7" value="it" />Italiano</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang8"><input type="checkbox" name="languages[]" id="lang8" value="lt" />Latviešu</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang9"><input type="checkbox" name="languages[]" id="lang9" value="nl" />Nederlands</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang10"><input type="checkbox" name="languages[]" id="lang10" value="pl" />Polski</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang11"><input type="checkbox" name="languages[]" id="lang11" value="ru" />Русский</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang12"><input type="checkbox" name="languages[]" id="lang12" value="sq" />Shqip</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang13"><input type="checkbox" name="languages[]" id="lang13" value="sr" /> Српски / srpski</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang14"><input type="checkbox" name="languages[]" id="lang14" value="fi" />Suomi</label>
-            </div>
-            <div class="checkbox col-sm-2 col-xs-4">
-              <label for="lang15"><input type="checkbox" name="languages[]" id="lang15" value="tr" />Türkçe</label>
-            </div>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang1" value="en" /> English
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang2" value="cn" /> 中文
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang3" value="de" /> Deutsch
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang4" value="el" /> Eλληνικά
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang5" value="es" /> Español
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang6" value="fr" /> Français
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang7" value="it" /> Italiano
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang8" value="lt" /> Latviešu
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang9" value="nl" /> Nederlands
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang10" value="pl" /> Polski
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang11" value="ru" /> Русский
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang12" value="sq" /> Shqip
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang13" value="sr" />  Српски / srpski
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang14" value="fi" /> Suomi
+            </label>
+            <label class="checkbox-inline col-md-2 col-sm-3 col-xs-6">
+              <input type="checkbox" name="languages[]" id="lang15" value="tr" /> Türkçe
+            </label>
           </div>
         </div>
-        <div class="form-row clearfix">
-          <div class="col-xs-12">
-            <label>Package type *</label>
-          </div>
-          <div class="form-group col-md-12">
+        <!-- Package type -->
+        <div class="form-group clearfix">
+          <label>Package type *</label>
+          <div>
             <input type="radio" name="packagetype" id="default" value="default" required="required" checked="checked" />
             <label for="default" class="btn btn-default col-xs-6">Default</label>
             <input type="radio" name="packagetype" id="custom" value="custom" required="required" />
@@ -200,81 +191,57 @@
             </div>
           </div>
         </div>
-        <div class="form-row clearfix">
-          <div class="form-group col-md-12">
-            <label>I want to use the material for *</label>
-            <textarea name="usage" class="form-control" rows="2" placeholder="A short description, e.g.: spreading information about Free Software in my surrounding; providing information about Free Software at the event XY ..." required="required" />
-          </div>
-        </div>
-        <div id="donate-group" class="form-row clearfix">
-          <div class="col-md-12">
-            <label>I will support the FSFE with a donation *</label>
-          </div>
-          <div class="form-group col-md-12">
-            <input type="radio" name="donate" id="nodonate" value="nodonate" required="required" />
-            <label for="nodonate" class="btn btn-default col-xs-3">no donation</label>
-            <input type="radio" name="donate" id="donate10" value="donate10" required="required" checked="checked" />
-            <label for="donate10" class="btn btn-default col-xs-3">10 EUR</label>
-            <input type="radio" name="donate" id="donate20" value="donate20" required="required" />
-            <label for="donate20" class="btn btn-default col-xs-3">20 EUR</label>
-            <input type="radio" name="donate" id="otherdonate" value="otherdonate" required="required" />
-            <div id="customdonation" class="col-md-3">
-              <div class="input-group">
-                <input id="donate" name="donate" type="number" class="form-control" value="" placeholder="> 10" min="11"/><div class="input-group-addon">EUR</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label>Any comment?</label>
-            <textarea name="comment" class="form-control" rows="1" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="col-md-12">
-            <div class="checkbox">
-              <label for="subcd"><input name="subcd" id="subcd" value="y" type="checkbox" />Please inform me occasionally about the FSFE's activities and special opportunities.</label>
-            </div>
-            <div class="checkbox">
-              <label for="subnl"><input name="subnl" id="subnl" value="y" type="checkbox" />I would like to receive the monthly newsletter with news about Free Software.</label>
-            </div>
-          </div>
+        <!-- Usage -->
+        <div class="form-group">
+          <label for="usage">I want to use the material for *</label>
+          <textarea name="usage" id="usage" class="form-control" rows="2" placeholder="A short description, e.g.: spreading information about Free Software in my surrounding; providing information about Free Software at the event XY ..." required="required" />
         </div>
       </fieldset>
-        <div class="row">
-          <div class="col-md-12">
-            <!-- @Translators: please translate the label of this button (the value field) -->
-            <input type="submit" name="dothis" class="btn btn-primary btn-block" value="Order now!"/>
+      <fieldset>
+        <legend>Final steps</legend>
+        <!-- Donation -->
+        <div class="form-group clearfix">
+          <label>I will support the FSFE with a donation *</label>
+          <div>
+            <input type="radio" name="donate" id="nodonate" value="nodonate" required="required" />
+            <label for="nodonate" class="btn btn-default col-xs-4">no donation</label>
+            <input type="radio" name="donate" id="donate10" value="donate10" required="required" checked="checked" />
+            <label for="donate10" class="btn btn-default col-xs-4">10 EUR</label>
+            <input type="radio" name="donate" id="donate20" value="donate20" required="required" />
+            <label for="donate20" class="btn btn-default col-xs-4">20 EUR</label>
+          </div>
         </div>
-      </div>
+        <!-- Comment -->
+        <div class="form-group">
+          <label for="comment">Any comment?</label>
+          <input type="text" name="comment" id="comment" class="form-control" rows="1" />
+        </div>
+        <!-- Newsletter + Community Database -->
+        <div class="form-group">
+          <div class="checkbox">
+            <label for="subcd"><input name="subcd" id="subcd" value="y" type="checkbox" />Please inform me occasionally about the FSFE's activities and special opportunities.</label>
+          </div>
+          <div class="checkbox">
+            <label for="subnl"><input name="subnl" id="subnl" value="y" type="checkbox" />I would like to receive the monthly newsletter with news about Free Software.</label>
+          </div>
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Order now!</button>
+      </fieldset>
     </form>
 
-    <div class="row">
-      <div class="col-md-12">
-        <h3 id="archives">Archive</h3>
-      </div>
-    </div>
+    <h3 id="archives">Archive</h3>
 
     <p>In case, parts of our material get outdated, we move it to our <a href="/contribute/promotion-materials-archive">material archive</a>. There you can still dowload the source files. </p>
 
-    <div class="row">
-      <div class="col-md-12">
-        <h3 id="feedback">Any feedback?</h3>
-      </div>
-    </div>
+    <h3 id="feedback">Any feedback?</h3>
 
-    <p>Did you experience any trouble with your order, found a typo in our text, you have a remark or an idea for upcoming items? Please <a href="mailto:contact@fsfe.org">share your feedback</a> with us. We are also always eager to receive nice stories and pictures, if you like our material.</p>
+    <p>Did you experience any trouble with your order, found a typo in our text, you have a remark or an idea for upcoming items? Please <a href="/contact">share your feedback</a> with us. We are also always eager to receive nice stories and pictures if you like our material.</p>
 
-    <div class="row">
-      <div class="col-md-12">
-        <h3 id="upcoming">Passionate to volunteer?</h3>
-      </div>
-    </div>
+    <h3 id="upcoming">Passionate to volunteer?</h3>
 
     <p>If you would like to help making new designs or improve old ones, join the <a href="/contribute/designers/designers">designers team</a>. If you want to support us with translations of our pages or materials, we will be happy to welcome you in our <a href="/contribute/translators/translators">translators team</a>.</p>
 
-    <!-- <script src="/scripts/spreadtheword.js"></script> -->
   </body>
 </html>
 <!--
