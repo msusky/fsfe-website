@@ -87,31 +87,31 @@
         <legend>Your address</legend>
         <div class="form-group col-md-6">
           <label for="firstname">First name *</label>
-          <input type="text" class="form-control" id="firstname" required="required" />
+          <input type="text" class="form-control" id="firstname" name="firstname" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="lastname">Last name *</label>
-          <input type="text" class="form-control" id="lastname" required="required" />
+          <input type="text" class="form-control" id="lastname" name="lastname" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="org">Company / Organisation</label>
-          <input type="text" class="form-control" id="org" />
+          <input type="text" class="form-control" id="org" name="org" />
         </div>
         <div class="form-group col-md-6">
           <label for="mail">Email *</label>
-          <input type="email" class="form-control" id="mail" required="required" />
+          <input type="email" class="form-control" id="mail" name="mail" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="street">Street, No. *</label>
-          <input type="text" class="form-control" id="street" required="required" />
+          <input type="text" class="form-control" id="street" name="street" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="zip">Postcode *</label>
-          <input type="text" class="form-control" id="zip" required="required" />
+          <input type="text" class="form-control" id="zip" name="zip" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="city">City *</label>
-          <input type="text" class="form-control" id="city" required="required" />
+          <input type="text" class="form-control" id="city" name="city" required="required" />
         </div>
         <div class="form-group col-md-6">
           <label for="country">Country *</label>
@@ -203,11 +203,11 @@
         <div class="form-group clearfix">
           <label>I will support the FSFE with a donation *</label>
           <div>
-            <input type="radio" name="donate" id="nodonate" value="nodonate" required="required" />
+            <input type="radio" name="donate" id="nodonate" value="0" required="required" />
             <label for="nodonate" class="btn btn-default col-xs-4">no donation</label>
-            <input type="radio" name="donate" id="donate10" value="donate10" required="required" checked="checked" />
+            <input type="radio" name="donate" id="donate10" value="10" required="required" checked="checked" />
             <label for="donate10" class="btn btn-default col-xs-4">10 EUR</label>
-            <input type="radio" name="donate" id="donate20" value="donate20" required="required" />
+            <input type="radio" name="donate" id="donate20" value="20" required="required" />
             <label for="donate20" class="btn btn-default col-xs-4">20 EUR</label>
           </div>
         </div>
