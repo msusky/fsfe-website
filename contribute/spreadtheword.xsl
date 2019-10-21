@@ -124,7 +124,7 @@
                         <xsl:attribute name="title">
                           <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'stw-languages-tooltip'" /></xsl:call-template>
                         </xsl:attribute>
-                        <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'stw-languages'" /></xsl:call-template>
+                        <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'download'" /></xsl:call-template>
                       </xsl:element>
                     </xsl:element>
                     <xsl:element name="span">

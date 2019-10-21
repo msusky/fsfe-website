@@ -10,7 +10,6 @@
   <text id="stw-context">More information</text>
   <text id="stw-printed"><a href="#how-to-order">Available in our stock</a></text>
   <text id="stw-printed-tooltip">You can order these printed versions from us using the order form.</text>
-  <text id="stw-languages">Download</text>
   <text id="stw-languages-tooltip">If you want to spread our information and promotion material online, feel free to download it in the available languages.</text>
   <text id="stw-license">License</text>
   <text id="stw-author">Author</text>
@@ -112,6 +111,7 @@
   <text id="learn-more">Learn more</text>
   <text id="press">Press</text>
   <text id="newsletter">Newsletter</text>
+  <text id="podcast">Podcast</text>
 
   <text id="go-to">Go to:</text>
   <text id="search">Search</text>
@@ -144,7 +144,7 @@
   <text id="privacy-policy">Privacy Policy</text>
   <text id="transparency-commitment">Transparency Commitment</text>
   <text id="tags">Tags</text>
-  <text id="discuss-article">Discuss this article</text>
+  <text id="discuss-article">Discuss this</text>
 
 
   <!-- Article metadata -->
