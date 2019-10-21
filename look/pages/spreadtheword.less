@@ -1,56 +1,72 @@
+/* Single elements on page */
+
 a#go-to-order {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
-a#go-to-order, #orderpromo input[type=radio]:checked + label, #orderpromo .btn-default:hover {
-    color: #3394CE;
-    background-color: #fff;
-    border-color: #3394CE;
+a#go-to-order,
+#orderpromo input[type=radio]:checked + label,
+#orderpromo .btn-default:hover {
+  color: #3394CE;
+  background-color: #fff;
+  border-color: #3394CE;
+  border-width: 2px;
 }
 
-#orderpromo #langprefs .checkbox {
-    margin-top: -5px;
-}
-
-#orderpromo input[type=radio], #orderpromo #defaultorder, #orderpromo #customorder, #orderpromo #customdonation {
-    display: none;
-}
-
-#orderpromo #default:checked ~ #defaultorder, #orderpromo #custom:checked ~ #customorder, #orderpromo #otherdonate:checked ~ #customdonation {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#orderpromo p.packageselect {
-    margin-top: 15px;
-}
-
-#orderpromo input[type=submit] {
-    .btn-lg;
-    margin: 10px 0 15px;
-    background-color: #3394CE;
-    border-color: #3394CE;
-}
-
+/* Promo items */
 .promoitem {
-    margin: 10px 0;
-    padding: 10px 0;
+  margin: 10px 0;
+  padding: 10px 0;
 }
 
 .promoimg {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .promoitemdetails {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 .promoitemdetails h4 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .promoitemdetails span.detail-label {
-    padding-right: 15px;
-    font-size: 0.8em;
-    text-transform: uppercase;
+  padding-right: 15px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+/* Order form */
+#orderpromo .btn {
+  border-width: 2px;
+}
+
+#orderpromo #langprefs .checkbox {
+  margin-top: -5px;
+}
+
+#orderpromo input[type=radio],
+#orderpromo #defaultorder,
+#orderpromo #customorder,
+#orderpromo #customdonation {
+  display: none;
+}
+
+#orderpromo #default:checked ~ #defaultorder,
+#orderpromo #custom:checked ~ #customorder,
+#orderpromo #otherdonate:checked ~ #customdonation {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#orderpromo p.packageselect {
+  margin-top: 15px;
+}
+
+#orderpromo input[type=submit] {
+  .btn-lg;
+  margin: 10px 0 15px;
+  background-color: #3394CE;
+  border-color: #3394CE;
 }
