@@ -35,9 +35,9 @@
             <!-- Image -->
             <xsl:for-each select="image">
               <xsl:element name="div">
-                <xsl:attribute name="class">col-md-3</xsl:attribute>
+                <xsl:attribute name="class">promoimg col-md-3</xsl:attribute>
                 <xsl:element name="img">
-                  <xsl:attribute name="class">promoimg img-rounded</xsl:attribute>
+                  <xsl:attribute name="class">img-rounded</xsl:attribute>
                   <xsl:attribute name="src">
                     <xsl:value-of select="@imgsmall" />
                   </xsl:attribute>
