@@ -18,6 +18,7 @@
 
   <gold>
     <donor date="2020-04-07" img="donors/intel.png">Intel</donor>
+    <donor date="2020-08-17" img="donors/knf.png">Kommunikationsnetz Franken</donor>
     <donor date="2020-12-31" img="donors/linuxhotel.png">Linuxhotel Villa Vogelsang</donor>
   </gold>
 
@@ -26,6 +27,7 @@
     <donor date="2020-12-31" img="donors/silver-freiheit.png">freiheit.com technologies</donor>
     <donor date="2020-01-29" img="donors/silver-hardenedlinux.png">HardenedLinux<!-- "citypw" --></donor>
     <donor date="2020-03-05" img="donors/silver-hp.png">HP</donor>
+    <donor date="2020-12-31" img="donors/silver-sysmocom.png">sysmocom - s.f.m.c. GmbH</donor>
   </silver>
 
   <bronze>
@@ -48,7 +50,7 @@
     <donor date="2020-12-31">Joachim Zobel</donor>
     <donor date="2020-07-22">Johannes Krampf</donor>
     <donor date="2020-12-31">LIHAS - LinuxHaus Stuttgart</donor>
-    <donor date="2020-12-31">Mario Lardieri</donor>
+    <donor date="2020-06-25">Mario Lardieri (-06)</donor>
     <donor date="2020-04-15">Oslandia</donor>
     <donor date="2020-06-21">Pierre Bourdon</donor>
     <donor date="2020-12-31">Raigo Aljand</donor>
