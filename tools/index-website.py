@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2020 Free Software Foundation Europe e.V. <https://fsfe.org>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Build an index for the search engine based on the article titles and tags
+
+import glob
+import json
+from bs4 import BeautifulSoup
+
+articles = []
+
+for file in glob.glob("news/**/*.xhtml"):
+    with open(file, "r") as file_fh:
+        file_parsed = BeautifulSoup(file_fh.read(), "lxml")
+        # Some article may not have a "key" attribute
+        # https://git.fsfe.org/FSFE/fsfe-website/pulls/1613
+        tags = [
+            tag.get("key")
+            for tag in file_parsed.find_all("tag")
+            if tag.has_attr("key") and tag.get("key") != "front-page"
+        ]
+        articles.append(
+            {
+                "url": "https://fsfe.org/" + file.replace("xhtml", "html"),
+                "tags": " ".join(tags),
+                "title": file_parsed.title.text.lower(),
+            }
+        )
+
+# Make a JS file that can be directly loaded
+# TODO find an easy way to load local JSON file from JavaScript
+with open("index.js", "w") as fh:
+    fh.write("var posts = " + json.dumps(articles))
