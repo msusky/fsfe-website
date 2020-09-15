@@ -20,14 +20,6 @@
         </xsl:element>
         <!--/a#logo-->
 
-        <xsl:element name="div">
-          <xsl:attribute name="id">motto</xsl:attribute>
-          <xsl:text>empowering users </xsl:text>
-          <xsl:element name="br"/>
-          <xsl:text>to control technology</xsl:text>
-        </xsl:element>
-        <!--/div#motto-->
-
       </xsl:element>
       <!--/div#masthead-->
 
@@ -110,14 +102,8 @@
               </xsl:element>
               <xsl:element name="li">
                 <xsl:element name="a">
-                  <xsl:attribute name="href"><xsl:value-of select="$urlprefix"/>/work.html</xsl:attribute>
-                  <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'fsfe/projects'" /></xsl:call-template>
-                </xsl:element>
-              </xsl:element>
-              <xsl:element name="li">
-                <xsl:element name="a">
                   <xsl:attribute name="href"><xsl:value-of select="$urlprefix"/>/activities/activities.html</xsl:attribute>
-                  <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'fsfe/campaigns'" /></xsl:call-template>
+                  <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'fsfe/activities'" /></xsl:call-template>
                 </xsl:element>
               </xsl:element>
               <xsl:element name="li">
