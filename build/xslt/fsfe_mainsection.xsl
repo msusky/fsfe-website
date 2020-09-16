@@ -17,18 +17,35 @@
         <xsl:apply-templates select="/buildinfo/document/event/body | /buildinfo/document/news/body | /buildinfo/document/body/* | /buildinfo/document/body/node()" />
 
         <!-- Link to discussion topic on community.fsfe.org -->
-        <xsl:if test = "/buildinfo/document/discussion/@href">
+        <xsl:if test = "/buildinfo/document/discussion/@topicid">
           <xsl:element name="p">
             <xsl:element name="a">
               <xsl:attribute name="class">learn-more</xsl:attribute>
               <xsl:attribute name="href">
-                <xsl:value-of select="discussion/@href" />
+                <xsl:text>https://community.fsfe.org/t/</xsl:text>
+                <xsl:value-of select="discussion/@topicid" />
               </xsl:attribute>
               <xsl:call-template name="fsfe-gettext">
                 <xsl:with-param name="id" select="'discuss-article'" />
               </xsl:call-template>
               <xsl:text> </xsl:text>
             </xsl:element>
+          </xsl:element>
+
+          <!-- embed comments for this topicid on community.fsfe.org -->
+          <xsl:element name="div">
+            <xsl:attribute name="id">discourse-comments</xsl:attribute>
+          </xsl:element>
+          <xsl:element name="script">
+            <xsl:attribute name="type">text/javascript</xsl:attribute>
+              DiscourseEmbed = { discourseUrl: 'https://community.fsfe.org/',
+                                 topicId: <xsl:value-of select="discussion/@topicid" /> };
+
+              (function() {
+                var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+              })();
           </xsl:element>
         </xsl:if>
 
