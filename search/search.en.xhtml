@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+  <version>1</version>
+
+<head>
+  <title>SFP#1 on Day Against DRM with Cory Doctorow</title>
+
+<script src="https://unpkg.com/lunr/lunr.js"></script>
+<script src="index.js"></script>
+</head>
+<body>
+<form method="get" action="">
+  <input placeholder=" search terms..." id="search" name="q" type="text" aria-label="Search term" />
+  <button type="submit" class="button">Search</button>
+</form>
+<div id="search_results"></div>
+
+<script>
+const query = new URLSearchParams(window.location.search);
+const searchString = query.get('q');
+
+const $target = document.querySelector('#search_results');
+if (searchString) {
+
+// Populate the field with any existing search string
+document.querySelector('#search').value = searchString;
+
+// Our index uses title as a key of the hashmap
+const postsByTitle = posts.reduce((acc, curr) => {
+  acc[curr.title] = curr;
+  return acc;
+}, {});
+
+index = lunr(function() {
+                    this.field("title", { boost: 10 });
+                    this.field("tags", { boost: 5 });
+                    this.field("url");
+                    this.ref("title");
+
+                    posts.forEach(function (page) {
+                        this.add(page)
+                    }, this)
+                });
+  const matches = index.search("*" + searchString + "*");
+
+  if (matches.length > 0) {
+    $target.innerHTML = matches.slice(0, 10).map(p => {
+        url = postsByTitle[p.ref].url;
+        return '<li><a href='&apos;+url+&apos;'>' + p.ref + ' </a></li>';
+    }).join('');
+  } else {
+    $target.innerHTML = `<div>No search results found. Please rephrase your query</div>`;
+  }
+} else {
+    $target.innerHTML = `<div>No search results found. Please rephrase your query</div>`;
+}
+</script>
+</body>
+</html>
