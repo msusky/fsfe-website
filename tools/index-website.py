@@ -29,5 +29,5 @@ for file in glob.glob("news/**/*.xhtml"):
 
 # Make a JS file that can be directly loaded
 # TODO find an easy way to load local JSON file from JavaScript
-with open("index.js", "w") as fh:
+with open("search/index.js", "w") as fh:
     fh.write("var posts = " + json.dumps(articles))
