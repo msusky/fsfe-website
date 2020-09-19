@@ -12,12 +12,10 @@ articles = []
 for file in glob.glob("news/**/*.xhtml"):
     with open(file, "r") as file_fh:
         file_parsed = BeautifulSoup(file_fh.read(), "lxml")
-        # Some article may not have a "key" attribute
-        # https://git.fsfe.org/FSFE/fsfe-website/pulls/1613
         tags = [
             tag.get("key")
             for tag in file_parsed.find_all("tag")
-            if tag.has_attr("key") and tag.get("key") != "front-page"
+            if tag.get("key") != "front-page"
         ]
         articles.append(
             {
