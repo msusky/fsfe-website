@@ -122,6 +122,27 @@
             <!--/ul#menu-sections-->
 
             <xsl:element name="ul">
+
+              <xsl:element name="li">
+                <xsl:element name="form">
+                  <xsl:attribute name="method">get</xsl:attribute>
+                  <xsl:attribute name="action">/search/search.en.html</xsl:attribute>
+                  <xsl:element name="i">
+                    <xsl:attribute name="class">fa fa-search fa-lg</xsl:attribute>
+                    <xsl:attribute name="style">color: #3394ce</xsl:attribute>
+                  </xsl:element>
+                  <xsl:text>&#x2000;</xsl:text>
+                  <xsl:element name="input">
+                  <xsl:attribute name="placeholder"><xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'search/placeholder'" /></xsl:call-template></xsl:attribute>
+
+                  <xsl:attribute name="name">q</xsl:attribute>
+                  <xsl:attribute name="size">10</xsl:attribute>
+                  <xsl:attribute name="style">display:inline-block</xsl:attribute>
+                  <xsl:attribute name="type">text</xsl:attribute>
+                  </xsl:element>
+                </xsl:element>
+              </xsl:element>
+
               <xsl:element name="li">
                 <xsl:element name="a">
                   <xsl:attribute name="href">https://my.fsfe.org/</xsl:attribute>
