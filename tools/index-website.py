@@ -9,7 +9,11 @@ from bs4 import BeautifulSoup
 
 articles = []
 
-for file in glob.glob("news/**/*.xhtml"):
+for file in list(
+    glob.glob("about/**/*.xhtml")
+    + glob.glob("activities/**/*.xhtml")
+    + glob.glob("news/**/*.xhtml"),
+):
     with open(file, "r") as file_fh:
         file_parsed = BeautifulSoup(file_fh.read(), "lxml")
         tags = [
