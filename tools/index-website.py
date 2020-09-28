@@ -21,7 +21,7 @@ for file in glob.glob("news/**/*.xhtml"):
             {
                 "url": "https://fsfe.org/" + file.replace("xhtml", "html"),
                 "tags": " ".join(tags),
-                "title": file_parsed.title.text.lower(),
+                "title": file_parsed.title.text,
             }
         )
 
