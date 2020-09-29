@@ -14,7 +14,7 @@ for file in list(
     + glob.glob("activities/**/*.xhtml")
     + glob.glob("news/**/*.xhtml"),
 ):
-    with open(file, "r") as file_fh:
+    with open(file, "r", encoding=("utf-8")) as file_fh:
         file_parsed = BeautifulSoup(file_fh.read(), "lxml")
         tags = [
             tag.get("key")
@@ -31,5 +31,5 @@ for file in list(
 
 # Make a JS file that can be directly loaded
 # TODO find an easy way to load local JSON file from JavaScript
-with open("search/index.js", "w") as fh:
-    fh.write("var posts = " + json.dumps(articles))
+with open("search/index.js", "w", encoding="utf-8") as fh:
+    fh.write("var posts = " + json.dumps(articles, ensure_ascii=False))
