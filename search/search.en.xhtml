@@ -26,16 +26,15 @@ if (searchString) {
 document.querySelector('#search').value = searchString;
 
 // Our index uses title as a key of the hashmap
-const postsByTitle = posts.reduce((acc, curr) => {
-  acc[curr.title] = curr;
+const postsByURL = posts.reduce((acc, curr) => {
+  acc[curr.url] = curr;
   return acc;
 }, {});
 
 index = lunr(function() {
                     this.field("title", { boost: 10 });
                     this.field("tags", { boost: 5 });
-                    this.field("url");
-                    this.ref("title");
+                    this.ref("url");
 
                     posts.forEach(function (page) {
                         this.add(page)
@@ -44,9 +43,9 @@ index = lunr(function() {
   const matches = index.search("*" + searchString + "*");
 
   if (matches.length > 0) {
-    $target.innerHTML = matches.slice(0, 10).map(p => {
-        url = postsByTitle[p.ref].url;
-        return '<li><a href='&apos;+url+&apos;'>' + p.ref + ' </a></li>';
+    $target.innerHTML = matches.slice(0, 15).map(p => {
+        title = postsByURL[p.ref].title;
+        return '<li><a href='&apos;+p.ref+&apos;'>' + title + ' </a></li>';
     }).join('');
   } else {
     $target.innerHTML = `<div>No search results found. Please rephrase your query</div>`;
