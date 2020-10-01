@@ -32,4 +32,4 @@ for file in list(
 # Make a JS file that can be directly loaded
 # TODO find an easy way to load local JSON file from JavaScript
 with open("search/index.js", "w", encoding="utf-8") as fh:
-    fh.write("var posts = " + json.dumps(articles, ensure_ascii=False))
+    fh.write("var pages = " + json.dumps(articles, ensure_ascii=False))
