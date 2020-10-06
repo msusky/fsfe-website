@@ -122,29 +122,6 @@
             <!--/ul#menu-sections-->
 
             <xsl:element name="ul">
-
-              <xsl:element name="li">
-                <xsl:element name="form">
-                  <xsl:attribute name="method">get</xsl:attribute>
-                  <xsl:attribute name="action">/search/search.en.html</xsl:attribute>
-                  <xsl:element name="button">
-                    <xsl:attribute name="type">submit</xsl:attribute>
-                    <xsl:attribute name="id">search-button</xsl:attribute>
-                    <xsl:element name="i">
-                      <xsl:attribute name="class">fa fa-search fa-lg</xsl:attribute>
-                    </xsl:element>
-                  </xsl:element>
-                  <xsl:element name="input">
-                  <xsl:attribute name="placeholder"><xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'search/placeholder'" /></xsl:call-template></xsl:attribute>
-
-                  <xsl:attribute name="name">q</xsl:attribute>
-                  <xsl:attribute name="size">10</xsl:attribute>
-                    <xsl:attribute name="id">search-box</xsl:attribute>
-                  <xsl:attribute name="type">text</xsl:attribute>
-                  </xsl:element>
-                </xsl:element>
-              </xsl:element>
-
               <xsl:element name="li">
                 <xsl:element name="a">
                   <xsl:attribute name="href">https://my.fsfe.org/</xsl:attribute>
@@ -167,6 +144,37 @@
                   </xsl:element>
                   <xsl:text>&#x2000;</xsl:text>
                   <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'change-lang'" /></xsl:call-template>
+                </xsl:element>
+              </xsl:element>
+
+              <!-- Search box -->
+              <xsl:element name="li">
+                <xsl:attribute name="id">menu-search-box</xsl:attribute>
+                <xsl:element name="form">
+                  <xsl:attribute name="method">GET</xsl:attribute>
+                  <xsl:attribute name="action">/search/search.en.html</xsl:attribute>
+                  <xsl:element name="div">
+                    <xsl:attribute name="class">input-group</xsl:attribute>
+                    <xsl:element name="input">
+                      <xsl:attribute name="placeholder">
+                        <xsl:call-template name="fsfe-gettext"><xsl:with-param name="id" select="'search/placeholder'" /></xsl:call-template>
+                      </xsl:attribute>
+                      <xsl:attribute name="type">text</xsl:attribute>
+                      <xsl:attribute name="name">q</xsl:attribute>
+                      <xsl:attribute name="size">10</xsl:attribute>
+                      <xsl:attribute name="class">form-control</xsl:attribute>
+                    </xsl:element>
+                    <xsl:element name="div">
+                      <xsl:attribute name="class">input-group-btn</xsl:attribute>
+                      <xsl:element name="button">
+                        <xsl:attribute name="class">btn btn-primary</xsl:attribute>
+                        <xsl:attribute name="type">submit</xsl:attribute>
+                        <xsl:element name="i">
+                          <xsl:attribute name="class">fa fa-search</xsl:attribute>
+                        </xsl:element>
+                      </xsl:element>
+                    </xsl:element>
+                  </xsl:element>
                 </xsl:element>
               </xsl:element>
             </xsl:element>
