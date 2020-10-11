@@ -41,7 +41,7 @@ index = lunr(function() {
                         this.add(page)
                     }, this)
                 });
-  const matches = index.search("*" + searchString + "*");
+  const matches = index.search(searchString);
 
   if (matches.length > 0) {
     $target.innerHTML = matches.slice(0, 15).map(p => {
