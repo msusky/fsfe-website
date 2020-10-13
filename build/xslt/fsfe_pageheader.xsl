@@ -158,7 +158,7 @@
                     <xsl:element name="div">
                       <xsl:attribute name="class">input-group-btn</xsl:attribute>
                       <xsl:element name="button">
-                        <xsl:attribute name="class">btn btn-primary</xsl:attribute>
+                        <xsl:attribute name="class">btn btn-primary btn-outline</xsl:attribute>
                         <xsl:attribute name="type">submit</xsl:attribute>
                         <xsl:element name="i">
                           <xsl:attribute name="class">fa fa-search</xsl:attribute>
