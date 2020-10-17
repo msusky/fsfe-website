@@ -18,6 +18,11 @@
 <script>
 const query = new URLSearchParams(window.location.search);
 const searchString = query.get('q');
+const locals = [document.documentElement.getAttribute("lang")];
+if (!locals.includes('en')) {
+    locals.push('en');
+}
+
 
 const $target = document.querySelector('#search_results');
 if (searchString) {
@@ -41,7 +46,9 @@ index = lunr(function() {
                         this.add(page)
                     }, this)
                 });
-  const matches = index.search(searchString);
+
+  // Do the search and filter out results not from the current local or English
+  const matches = index.search(searchString).filter(p => locals.some(local => p.ref.includes(local)));
 
   if (matches.length > 0) {
     $target.innerHTML = matches.slice(0, 15).map(p => {
