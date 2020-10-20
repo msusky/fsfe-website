@@ -48,7 +48,7 @@ index = lunr(function() {
                 });
 
   // Do the search and filter out results not from the current local or English
-  const matches = index.search(searchString).filter(p => locals.some(local => p.ref.includes(local)));
+  const matches = index.search(searchString).filter(p => locals.some(local => p.ref.includes(local + ".html")));
 
   if (matches.length > 0) {
     $target.innerHTML = matches.slice(0, 15).map(p => {
