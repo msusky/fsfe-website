@@ -16,8 +16,7 @@
 <div id="search_results"></div>
 
 <script>
-const query = new URLSearchParams(window.location.search);
-const searchString = query.get('q');
+const searchString = new URLSearchParams(window.location.search).get('q');
 const locals = [document.documentElement.getAttribute("lang")];
 if (!locals.includes('en')) {
     locals.push('en');
