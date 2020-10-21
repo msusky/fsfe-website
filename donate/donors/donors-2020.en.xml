@@ -17,6 +17,7 @@
   <version>1</version>
 
   <gold>
+    <donor date="2020-09.24" img="donors/google.jpg" mark="yes">Google</donor>
     <donor date="2020-04-07" img="donors/intel.png">Intel</donor>
     <donor date="2020-08-17" img="donors/knf.png">Kommunikationsnetz Franken</donor>
     <donor date="2020-12-31" img="donors/linuxhotel.png">Linuxhotel Villa Vogelsang</donor>
@@ -50,7 +51,10 @@
     <donor date="2020-12-31">Joachim Zobel</donor>
     <donor date="2020-07-22">Johannes Krampf</donor>
     <donor date="2020-12-31">LIHAS - LinuxHaus Stuttgart</donor>
+    <donor date="2020-09-25">Marc Sunet</donor>
     <donor date="2020-06-25">Mario Lardieri (-06)</donor>
+    <donor date="2020-09-29">Martin F. Krafft</donor>
+    <donor date="2020-12-31">Neuhaus-IT (08-)</donor>
     <donor date="2020-04-15">Oslandia</donor>
     <donor date="2020-06-21">Pierre Bourdon</donor>
     <donor date="2020-12-31">Raigo Aljand</donor>

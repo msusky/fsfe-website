@@ -40,6 +40,10 @@ RETURN_NAME=0
 RETURN_NEWSDATE=0
 RETURN_VERSION_PRES=0
 RETURN_VERSION_INT=0
+RETURN_ABS_LINK=0
+RETURN_FIX_LANG=0
+RETURN_CSS_ELEMENT=0
+RETURN_CSS_ATTR=0
 
 # displayed files
 FILES_SYNTAX=""
@@ -50,6 +54,10 @@ FILES_NAME=""
 FILES_NEWSDATE=""
 FILES_VERSION_PRES=""
 FILES_VERSION_INT=""
+FILES_ABS_LINK=""
+FILES_FIX_LANG=""
+FILES_CSS_ELEMENT=""
+FILES_CSS_ATTR=""
 
 
 # =============================================================================
@@ -163,13 +171,48 @@ for f in $files_all; do
   fi
 
   # ---------------------------------------------------------------------------
-  # Version tag numbering scheme
+  # Check absolute links to fsfe.org
+  # ---------------------------------------------------------------------------
+  fileregex="(\.xhtml$|\.xml$)"
+  exclude="^(drm.info|pdfreaders|global|cgi-bin|build|scripts)"
+  if [[ ( $f =~ $fileregex ) && ( ! $f =~ $exclude ) && ( -e "$f" ) ]]; then
+    if xmllint --xpath "//a/@href" "${f}" 2>/dev/null | sed -E 's/([^\r\n]) (href=)/\1\n \2/g' | grep -qE "https?://fsfe(urope)?.org"; then
+      RETURN_ABS_LINK=$((RETURN_ABS_LINK + 1))
+      FILES_ABS_LINK="${FILES_ABS_LINK}|${f}"
+    fi
+  fi
+
+  # ---------------------------------------------------------------------------
+  # Check for links with fixed language
+  # ---------------------------------------------------------------------------
+  fileregex="(\.xhtml$|\.xml$)"
+  exclude="^(cgi-bin|build)"
+  if [[ ( $f =~ $fileregex ) && ( ! $f =~ $exclude ) && ( -e "$f" ) ]]; then
+    if xmllint --xpath "//a/@href" "${f}" 2>/dev/null | sed -E 's/([^\r\n]) (href=)/\1\n \2/g' | grep -qE "\"(https?://fsfe(urope)?.org)?/.+?\.[a-z]{2}(\.html)?(#.+?)?\""; then
+      RETURN_FIX_LANG=$((RETURN_FIX_LANG + 1))
+      FILES_FIX_LANG="${FILES_FIX_LANG}|${f}"
+    fi
+  fi
+
+  # ---------------------------------------------------------------------------
+  # Check for <style> elements
   # ---------------------------------------------------------------------------
   fileregex="(\.xhtml$|\.xml$)"
   if [[ ( $f =~ $fileregex ) && ( -e "$f" ) ]]; then
-    if ! xmllint --xpath "/*/version" "${f}" &>/dev/null; then
-      RETURN_VERSION=$((RETURN_VERSION + 1))
-      FILES_VERSION="${FILES_VERSION}|${f}"
+    if xmllint --xpath "//style" "${f}" &>/dev/null; then
+      RETURN_CSS_ELEMENT=$((RETURN_CSS_ELEMENT + 1))
+      FILES_CSS_ELEMENT="${FILES_CSS_ELEMENT}|${f}"
+    fi
+  fi
+
+  # ---------------------------------------------------------------------------
+  # Check for style attributes
+  # ---------------------------------------------------------------------------
+  fileregex="(\.xhtml$|\.xml$)"
+  if [[ ( $f =~ $fileregex ) && ( -e "$f" ) ]]; then
+    if xmllint --xpath "//@style" "${f}" &>/dev/null; then
+      RETURN_CSS_ATTR=$((RETURN_CSS_ATTR + 1))
+      FILES_CSS_ATTR="${FILES_CSS_ATTR}|${f}"
     fi
   fi
 
@@ -184,9 +227,9 @@ echo -ne "\n"
 
 if [ $RETURN_SYNTAX -gt 0 ]; then
   cat <<EOF >&2
-  ==================
-  || SYNTAX ERROR ||
-  ==================
+  =========================
+  || [CRIT] SYNTAX ERROR ||
+  =========================
   ${RETURN_SYNTAX} files failed the XML syntax check!
   $(echo "${FILES_SYNTAX}" | sed -E -e "s/\|/\n  - /g")
 
@@ -198,16 +241,14 @@ if [ $RETURN_SYNTAX -gt 0 ]; then
   been closed correctly, errors with special characters like "&", or
   other syntactical mistakes.
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_HTML -gt 0 ]; then
   cat <<EOF >&2
-  ==========================
-  || FILE EXTENSION ERROR ||
-  ==========================
+  =================================
+  || [CRIT] FILE EXTENSION ERROR ||
+  =================================
   ${RETURN_HTML} files in your commit have a wrong file extension.
 
   The following files have ".html" as file extensions:
@@ -218,16 +259,14 @@ if [ $RETURN_HTML -gt 0 ]; then
   sure you follow the format for the XHTML files, and to name them
   accordingly.
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_TAGS -gt 0 ]; then
   cat <<EOF >&2
-  =============================
-  || NEW / DUPLICATED TAG(S) ||
-  =============================
+  ====================================
+  || [WARN] NEW / DUPLICATED TAG(S) ||
+  ====================================
   Your commit introduced $RETURN_TAGS tag(s) which did not exist before in
   our news or event items!
   $(echo "${FILES_TAGS}" | sed -E -e "s/\|/\n  - /g")
@@ -240,18 +279,17 @@ if [ $RETURN_TAGS -gt 0 ]; then
   Here you will find the currently used tags:
   https://fsfe.org/tags/tags.html
 
-  Your commit has been executed anyway. Please make another commit to
-  replace a new tag with an already existing one unless you are really
-  sure. Thank you.
+  Please make another commit to replace a new tag with an already
+  existing one unless you are really sure. Thank you.
 
 EOF
 fi
 
 if [ $RETURN_ENC -gt 0 ]; then
   cat <<EOF >&2
-  =========================
-  || FILE ENCODING ERROR ||
-  =========================
+  ================================
+  || [CRIT] FILE ENCODING ERROR ||
+  ================================
   ${RETURN_ENC} files in your commit have a wrong encoding.
 
   The following files are not UTF-8 encoded:
@@ -261,16 +299,14 @@ if [ $RETURN_ENC -gt 0 ]; then
   Everything else creates problems. Please change the file encoding in
   your text editor or with a special tool.
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_NAME -gt 0 ]; then
   cat <<EOF >&2
-  =======================
-  || FILE NAMING ERROR ||
-  =======================
+  ==============================
+  || [CRIT] FILE NAMING ERROR ||
+  ==============================
   The following files do not follow the naming scheme for news and
   events:
   $(echo "${FILES_NAME}" | sed -E -e "s/\|/\n  - /g")
@@ -285,32 +321,28 @@ if [ $RETURN_NAME -gt 0 ]; then
   onwards. Of course, the ".en" can also be the code for another
   language we support.
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_NEWSDATE -gt 0 ]; then
   cat <<EOF >&2
-  ==============================
-  || NEWSDATE ATTRIBUTE ERROR ||
-  ==============================
+  =====================================
+  || [CRIT] NEWSDATE ATTRIBUTE ERROR ||
+  =====================================
   The following files do not follow the scheme for the newsdate attribute:
   $(echo "${FILES_NEWSDATE}" | sed -E -e "s/\|/\n  - /g")
 
   The scheme is "20YY-MM-DD", so the respective line should look
   something like this: <html newsdate="2020-01-01">
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_VERSION_PRES -gt 0 ]; then
   cat <<EOF >&2
-  =========================
-  || MISSING VERSION TAG ||
-  =========================
+  ================================
+  || [CRIT] MISSING VERSION TAG ||
+  ================================
   The following files do not contain the mandatory <version> tag, or it is at
   the wrong level:
   $(echo "${FILES_VERSION_PRES}" | sed -E -e "s/\|/\n  - /g")
@@ -318,16 +350,14 @@ if [ $RETURN_VERSION_PRES -gt 0 ]; then
   Please read more about outdated translations and the version tag here:
   https://wiki.fsfe.org/TechDocs/Mainpage/Translations/
 
-  The commit will be aborted. You have to fix the problem first.
-
 EOF
 fi
 
 if [ $RETURN_VERSION_INT -gt 0 ]; then
   cat <<EOF >&2
-  =======================
-  || WRONG VERSION TAG ||
-  =======================
+  ==============================
+  || [CRIT] WRONG VERSION TAG ||
+  ==============================
   The following files contain a malformed <version> tag:
   $(echo "${FILES_VERSION_INT}" | sed -E -e "s/\|/\n  - /g")
 
@@ -337,10 +367,111 @@ if [ $RETURN_VERSION_INT -gt 0 ]; then
   Please read more about outdated translations and the version tag here:
   https://wiki.fsfe.org/TechDocs/Mainpage/Translations/
 
-  The commit will be aborted. You have to fix the problem first.
+EOF
+fi
+
+if [ $RETURN_ABS_LINK -gt 0 ]; then
+  cat <<EOF >&2
+  ======================================
+  || [CRIT] ABSOLUTE LINK TO fsfe.org ||
+  ======================================
+  The following files contain a absolute links to fsfe.org:
+  $(echo "${FILES_ABS_LINK}" | sed -E -e "s/\|/\n  - /g")
+
+  Please do not use links containing "https://fsfe.org". So instead of
+
+    <a href="https://fsfe.org/freesoftware/">link</a>
+
+  you should use:
+
+    <a href="/freesoftware">link</a>
+
+  More information about the why and how:
+  https://wiki.fsfe.org/TechDocs/Mainpage/Editing/BestPractices#No_absolute_links_to_fsfe.org
 
 EOF
 fi
 
-exit $((RETURN_SYNTAX + RETURN_ENC + RETURN_NAME + RETURN_NEWSDATE + \
-        RETURN_VERSION_PRES + RETURN_VERSION_INT))
+if [ $RETURN_FIX_LANG -gt 0 ]; then
+  cat <<EOF >&2
+  ================================
+  || [CRIT] FIXED LANGUAGE LINK ||
+  ================================
+  The following files contain links with fixed language:
+  $(echo "${FILES_FIX_LANG}" | sed -E -e "s/\|/\n  - /g")
+
+  Please do not preset a language in your links to resources on fsfe.org.
+  So instead of:
+
+    <a href="/contribute/web.en.html">link</a>
+
+  you should use:
+
+    <a href="/contribute/web.html">link</a>
+
+  More information about the why and how:
+  https://wiki.fsfe.org/TechDocs/Mainpage/Editing/BestPractices#No_fixed_language_in_internal_links
+
+EOF
+fi
+
+if [ $RETURN_CSS_ELEMENT -gt 0 ]; then
+  cat <<EOF >&2
+  =================================
+  || [WARN] INLINE CSS (<style>) ||
+  =================================
+  The following files contain inline CSS as <style> elements:
+  $(echo "${FILES_CSS_ELEMENT}" | sed -E -e "s/\|/\n  - /g")
+
+  Please do not use <style> elements to define CSS rules for a file.
+
+  More information why this is bad style, and what to do instead:
+  https://wiki.fsfe.org/TechDocs/Mainpage/Editing/BestPractices#No_in-line_CSS
+
+EOF
+fi
+
+if [ $RETURN_CSS_ATTR -gt 0 ]; then
+  cat <<EOF >&2
+  ==================================
+  || [WARN] INLINE CSS (style="") ||
+  ==================================
+  The following files contain inline CSS as style attributes:
+  $(echo "${FILES_CSS_ATTR}" | sed -E -e "s/\|/\n  - /g")
+
+  Please do not use style attributes to design an element. So instead of:
+
+    <p style="color: red;">text</p>
+
+  use CSS classes instead, or create them if necessary.
+
+  More information why this is bad style, and what to do instead:
+  https://wiki.fsfe.org/TechDocs/Mainpage/Editing/BestPractices#No_in-line_CSS
+
+EOF
+fi
+
+EXIT_CRIT=$((RETURN_SYNTAX + RETURN_ENC + RETURN_NAME + RETURN_NEWSDATE + \
+          RETURN_VERSION_PRES + RETURN_VERSION_INT + RETURN_ABS_LINK + \
+          RETURN_FIX_LANG))
+
+EXIT_WARN=$(($RETURN_TAGS + $RETURN_CSS_ELEMENT + $RETURN_CSS_ATTR))
+
+if [ $EXIT_CRIT -gt 0 ]; then
+  cat <<EOF >&2
+  ----------------------------------
+
+  The commit will be aborted. You have to fix the critical problems
+  first. These are marked with [CRIT].
+EOF
+elif [ $EXIT_WARN -gt 0 ]; then
+  cat <<EOF >&2
+  ----------------------------------
+
+  Your commit contains a few problematic, but not critical problems,
+  therefore it will be executed anyway. However, please fix them in a
+  following commit! They are marked with [WARN].
+EOF
+fi
+
+exit $EXIT_CRIT
