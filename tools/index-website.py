@@ -10,7 +10,7 @@ from subprocess import run, PIPE
 
 # fmt: off
 # stopwords from nltk (inlined to avoid dependency)
-# generated with 
+# generated with
 # from nltk.corpus import stopwords
 #
 # print(
