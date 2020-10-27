@@ -28,12 +28,12 @@ stopwords = {'facessimo', 'eûtes', 'starai', 'wasn', 'l', 'avuta', 'below', 'de
 # fmt: on
 articles = []
 
-for file in list(
+for filename in list(
     glob.glob("about/**/*.xhtml")
     + glob.glob("activities/**/*.xhtml")
     + glob.glob("news/**/*.xhtml"),
 ):
-    with open(file, "r", encoding=("utf-8")) as file_fh:
+    with open(filename, "r", encoding=("utf-8")) as file_fh:
         file_parsed = BeautifulSoup(file_fh.read(), "lxml")
         tags = [
             tag.get("key")
@@ -42,7 +42,7 @@ for file in list(
         ]
         articles.append(
             {
-                "url": "https://fsfe.org/" + file.replace("xhtml", "html"),
+                "url": "https://fsfe.org/" + filename.replace("xhtml", "html"),
                 "tags": " ".join(tags),
                 "title": file_parsed.title.text,
                 "teaser": " ".join(
@@ -61,7 +61,7 @@ for file in list(
                         "--format=%ad",
                         "--date=format:%d-%m-%Y",
                         "-1",
-                        file,
+                        filename,
                     ],
                     stdout=PIPE,
                 )
