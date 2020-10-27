@@ -7,6 +7,7 @@ import glob
 import json
 from bs4 import BeautifulSoup
 from subprocess import run, PIPE
+import multiprocessing.dummy as mp
 
 # fmt: off
 # stopwords from nltk (inlined to avoid dependency)
@@ -27,12 +28,10 @@ stopwords = {'facessimo', 'eûtes', 'starai', 'wasn', 'l', 'avuta', 'below', 'de
 
 # fmt: on
 articles = []
+p = mp.Pool(4)
 
-for filename in list(
-    glob.glob("about/**/*.xhtml")
-    + glob.glob("activities/**/*.xhtml")
-    + glob.glob("news/**/*.xhtml"),
-):
+
+def process_file(filename: str):
     with open(filename, "r", encoding=("utf-8")) as file_fh:
         file_parsed = BeautifulSoup(file_fh.read(), "lxml")
         tags = [
@@ -69,6 +68,18 @@ for filename in list(
                 .rstrip(),
             }
         )
+
+
+p.map(
+    process_file,
+    list(
+        glob.glob("about/**/*.xhtml")
+        + glob.glob("activities/**/*.xhtml")
+        + glob.glob("news/**/*.xhtml"),
+    ),
+)
+p.close()
+p.join()
 
 # Make a JS file that can be directly loaded
 # TODO find an easy way to load local JSON file from JavaScript
