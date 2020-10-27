@@ -51,21 +51,10 @@ def process_file(filename: str):
                 )
                 if file_parsed.body.find("p")
                 else "",
-                # Get the date of the last commit for the file
-                "date": run(
-                    [
-                        "git",
-                        "log",
-                        "--follow",
-                        "--format=%ad",
-                        "--date=format:%d-%m-%Y",
-                        "-1",
-                        filename,
-                    ],
-                    stdout=PIPE,
-                )
-                .stdout.decode("utf-8")
-                .rstrip(),
+                # Get the date of the file if it's a news item
+                "date": file_parsed.html.get("newsdate")
+                if file_parsed.html.has_attr("newsdate")
+                else None,
             }
         )
 
