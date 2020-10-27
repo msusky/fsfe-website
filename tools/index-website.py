@@ -6,6 +6,7 @@
 import glob
 import json
 from bs4 import BeautifulSoup
+from subprocess import run, PIPE
 
 # fmt: off
 # stopwords from nltk (inlined to avoid dependency)
@@ -51,6 +52,21 @@ for file in list(
                 )
                 if file_parsed.body.find("p")
                 else "",
+                # Get the date of the last commit for the file
+                "date": run(
+                    [
+                        "git",
+                        "log",
+                        "--follow",
+                        "--format=%ad",
+                        "--date=format:%d-%m-%Y",
+                        "-1",
+                        file,
+                    ],
+                    stdout=PIPE,
+                )
+                .stdout.decode("utf-8")
+                .rstrip(),
             }
         )
 
